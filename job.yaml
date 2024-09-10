@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: test-communication
+spec:
+  template:
+    spec:
+      containers:
+      - name: curl-container
+        image: curlimages/curl:7.73.0
+        command: ["curl", "-s", "http://productpage:9080"]
+      restartPolicy: Never
+  backoffLimit: 4
+

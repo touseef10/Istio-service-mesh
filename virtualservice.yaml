@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: nginx-virtualservice
+  namespace: nginx-apps
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - nginx-gateway
+  http:
+  - match:
+    - uri:
+        prefix: "/"
+    route:
+    - destination:
+        host: nginx-v1.nginx-apps.svc.cluster.local
+        port:
+          number: 8080
+      weight: 100
+    - destination:
+        host: nginx-v2.nginx-apps.svc.cluster.local
+        port:
+          number: 8081
+      weight: 50
+
